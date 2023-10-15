@@ -1,0 +1,898 @@
+
+/*Fonts*/
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@font-face {
+  font-family: "Comissaire";
+  src: url("./fonts/BrushScriptOpti-Regular.otf") format("OpenType");
+}
+
+/*Désactiver le scroll horizontale et scroll transparant*/
+html {
+  overflow-x: hidden;
+  overflow-y: overlay;
+  
+}
+
+/*Marges remisent à 0*/
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  scroll-behavior: smooth;
+}
+
+/*Initilisation*/
+:root {
+  --PrimaryBlue: rgb(134, 134, 134);
+  --SecondaryBlue: rgb(0, 0, 0);
+}
+
+/*Police d'écriture dans le body*/
+body {
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  max-width: 100vw;
+  
+}
+/*Classe Pour l'effet d'image trasparent */
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background-image: url(images/background.png);
+  background-size: cover;
+  filter: blur(15px);
+  opacity: 1;  /* ajustement de l'opacité de l'image */
+  background-color: rgb(255, 255, 255);
+}
+
+
+.header {
+  padding: 60px;
+  text-align: center;
+  background: #1abc9c;
+  color: white;
+  font-size: 30px;
+  
+}
+
+/*NAV----------------------------------------------------------------------------------------------------------------------------------NAV*/
+
+/*Centrer nav-links et logo*/
+.navbar {
+  position: absolute;
+  padding: 20px 50px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+    background-color: rgb(249, 166, 120, 0.62)
+}
+
+
+/*Couleur du texte navbar*/
+.navbar a {
+  color: rgb(0, 0, 0);
+}
+
+/*Taille logo dans la navbar*/
+.navbar .logo {
+  font-size: 1.7em;
+  font-weight: bold;
+}
+
+/*Flex le menu UL de la navbar*/
+.navbar .nav-links ul {
+  display: flex;
+}
+
+/*Taille nav-links*/
+.navbar .nav-links ul li {
+  margin: 0 25px;
+  font-size: 1.1em;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+/*Background hover navlinks*/
+.navbar .nav-links ul li a {
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: 0.5s;
+}
+
+/*Activation du background hover et aussi pour la classe active*/
+.navbar .nav-links ul li.active a,
+.navbar .nav-links ul li a:hover {
+  background-color: rgb(170, 108, 49);
+  color: var(--SecondaryBlue);
+}
+
+/*Position menu-hamburger*/
+.navbar .menu-hamburger {
+  width: 35px;
+  display: none;
+  position: absolute;
+  right: 30px;
+  top: 50px;
+}
+
+/*Position onglet avant le scroll*/
+.onglet {
+  position: fixed;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 20px;
+  z-index: 100;
+  opacity: 0;
+  transform: translateX(-250%);
+  transition: 0.5s;
+}
+
+/*Position onglet après le scroll*/
+.onglet.scroll {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/*Style onglet*/
+.onglet a {
+  height: 15px;
+  width: 15px;
+  background-color: transparent;
+  margin: 7px 0px;
+  border: solid 2px white;
+  border-radius: 99px;
+  transition: 0.3s;
+}
+
+/*Style onglet active*/
+.onglet a.activeScroll {
+  background-color: rgb(255, 255, 255);
+  border: none;
+  transition: 0.3s;
+  scale: 1.45;
+}
+
+/*Taille scrollbar*/
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: transparent;
+}
+
+/*Couleur scrollbar devant*/
+::-webkit-scrollbar-thumb {
+  border-radius: 15px;
+  background: rgb(0 0 0 / 48%);
+}
+
+/*Couleur scrollbar hover*/
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(63, 63, 63, 0.48);
+}
+
+/*Positionnement boutton (scroll to top) avant de scroll*/
+#scroll_to_top {
+  position: fixed;
+  left: 2vw;
+  bottom: 2vh;
+  transform: translateX(-300%);
+  transition: 0.3s;
+  background-color: rgba(255, 255, 255, 0);
+  height: 50px;
+  width: 50px;
+  border-radius: 99px;
+  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.219);
+}
+
+/*Adaptation NAVBAR pour tablette/telephone*/
+@media screen and (max-width: 900px) {
+  body {
+    max-width: 100vw;
+    overflow: overlay;
+    overflow-x: hidden;
+  }
+  .navbar {
+    padding: 0;
+  }
+  .navbar .menu-hamburger {
+    display: block;
+    z-index: 4;
+  }
+ .nav-links {
+  top: 0;
+  left: 0;
+  position: absolute;
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0.206);
+	backdrop-filter: saturate(180%) blur(20px);
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: -100%;
+  opacity: 0;
+  z-index: 3;
+  transition: all 0.5s ease;
+}
+
+
+  .nav-links.mobile-menu {
+    margin-left: 0;
+    opacity: 1;
+  }
+
+  .nav-links ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbar .nav-links ul li {
+    margin: 25px 0px;
+    font-size: 1.3em;
+  }
+
+  .navbar .logo {
+    position: absolute;
+    top: 40px;
+    left: 5vw;;
+  }
+
+  /*Ne pas afficher le menu onglet sur téléphone*/
+  .onglet {
+    display: none;
+  }
+
+  /*Positionnement bouton scroll to top sur téléphone après le scroll*/
+  #scroll_to_top.scroll {
+    transform: translateX(2%);
+    z-index: 50;
+  }
+
+  /*Taille img du boutton (scroll to top)*/
+  #scroll_to_top img {
+    padding: 10px;
+    width: 100%;
+    color: var(--SecondaryBlue);
+  }
+}
+
+/*PAGE ACCEUIL----------------------------------------------------------------------------------------------------------------------------------PAGE ACCEUIL*/
+
+/*Background*/
+#accueil {
+  min-height: 100vh;
+  min-width: 100vw;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}  
+
+#accueil .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin-bottom: 40px; /* Adjust the margin-bottom value as needed */
+}
+
+#accueil .container h1 {
+  text-align: center;
+  color: white;
+  font-size: 5em;
+  margin-top: 0vh;
+  margin-bottom: 0vh; /* Adjust the margin-bottom value for the h1 element */
+  max-width: 80%;
+  max-height: 80%;
+  text-shadow: 2px 2px 20px rgba(0, 0, 0, 1);
+}
+
+#accueil .container p {
+  color: rgb(0, 0, 0);
+  max-height: 70%;
+  font-size: 1.5em;
+  font-weight: 300;
+  width: auto;
+  max-width: 80%;
+  background-color: rgba(197, 197, 197, 0.616) ;
+  border-radius: 5px;
+  padding: 10px;
+  
+}
+
+/*Boutton*/
+#accueil .container button {
+  cursor: pointer;
+  width: 250px;
+  height: 65px;
+  border-radius: 99px;
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-weight: 600;
+  font-size: 1.1em;
+  border: solid 4px white;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  transition: 0.5s;
+}
+
+/*Hover boutton*/
+#accueil .container button:hover {
+  width: 280px;
+  color: var(--SecondaryBlue);
+}
+
+/*Position du boutton avant le hover*/
+#accueil .container button::before {
+  content: "";
+  position: absolute;
+  width: 280px;
+  height: 65px;
+  border-radius: 99px;
+  top: -5px;
+  left: -5px;
+  transform: translate(-100%);
+  transition: 0.5s;
+  z-index: -1;
+  background-color: rgb(255, 255, 255);
+}
+
+/*Position du boutton pendant le hover*/
+#accueil .container button:hover::before {
+  transform: translate(0%);
+}
+
+/*Fleche boutton avant hover*/
+#accueil .container button span {
+  transform: scale(0);
+  margin-left: -10px;
+  transition: 0.3s;
+  position: absolute;
+  top: 16px;
+}
+
+/*Fleche boutton apres hover*/
+#accueil .container button:hover span {
+  transform: scale(1.2);
+  margin-left: 20px;
+}
+
+/*Adaptation pour téléphone*/
+@media screen and (max-width: 900px) {
+  body {
+    max-width: 100vw;
+    overflow: overlay;
+    overflow-x: hidden;
+  }
+  #accueil .container h1 {
+    position: static;
+    margin-bottom: 20px;
+    line-height: 70px;
+    font-size: 3em;
+  }
+
+  #accueil .container p {
+    position: static;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+  }
+}
+
+/*PAGE HISTOIRE----------------------------------------------------------------------------------------------------------------------------------PAGE HISTOIRE*/
+
+/*Page 2 histoire----------------------------------------------------------------------------------------------------------------------------------histoire*/
+
+/*Background*/
+#histoire {
+  background-color: white;
+}
+
+#histoire .wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 50px 10px;
+}
+
+#histoire .container .content h1 {
+  color: var(--PrimaryBlue);
+  text-align: center;
+  font-size: 2.2em;
+}
+
+#histoire .container {
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+  width: 80%;
+  box-shadow: 2px 2px 40px rgb(0 0 0 / 30%);
+  flex-wrap: wrap;
+}
+
+#histoire .container .content {
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+  width: 60%;
+}
+
+#histoire img {
+  width: 450px;
+  margin: auto 0;
+  box-shadow: 2px 2px 10px rgb(0 0 0 / 30%);
+  transition: 0.5s;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+#histoire img:hover {
+  scale: 1.05;
+  cursor: pointer;
+}
+
+#histoire .container .content h3 {
+  font-size: 0.9em;
+  margin-bottom: 10px;
+  border-bottom: 1px solid black;
+}
+
+#histoire .container .content p {
+  text-align: justify;
+  width: 100%;
+  margin-bottom: 20px;
+  font-size: 0.8em;
+  font-style: italic;
+  line-height: 25px;
+}
+
+#histoire .container .content h5.top {
+  margin-top: 20px;
+}
+
+#histoire .container .content h5 {
+  text-align: center;
+  font-weight: 400;
+}
+
+#histoire .histoireP h1 {
+  margin-top: 30px;
+  color: var(--PrimaryBlue);
+  font-size: 2em;
+  text-align: center;
+}
+
+#histoire .histoireP p {
+  text-align: justify;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+@media screen and (max-width: 1530px) {
+  #histoire .container .content {
+    padding-top: 30px;
+    width: 90%;
+    margin: auto;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  #histoire img {
+    width: 250px;
+  }
+}
+
+
+
+
+/*PAGE CARTE----------------------------------------------------------------------------------------------------------------------------------PAGE CARTE*/
+
+.cb{
+  display: flex;
+  justify-content: center;
+  margin-top: -41px;
+  margin-left: 85%;
+  width: 15%;
+  position:relative;
+  border-radius:   66% 34% 0% 70% / 0% 0% 100% 100% ;
+  background-color: #ff1a5f;
+  padding: 10px 10px;
+}
+
+
+
+/*PAGE CONTACT----------------------------------------------------------------------------------------------------------------------------------PAGE Contact*/
+
+/*scroll2----------------------------------------------------------------------------------------------------------------------------------scroll2*/
+
+/*Background*/
+#scroll2 {
+  min-height: 100vh;
+  background-color: rgb(255 241 180);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 0;
+}
+
+/*Container de la scroll2*/
+#scroll2 .box {
+  width: 75%;
+  background-color: white;
+  margin-bottom: 0%;
+
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.295);
+}
+
+/*Centrer le container*/
+#scroll2 .box .container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 40px 0px;
+}
+
+#scroll2 .box .container .picture {
+  width: 530px;
+  background: url(images/imgScroll2.jpg);
+  margin-top: -80px;
+  height: 700px;
+  background-repeat: no-repeat;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.425);
+  transition: 0.5s;
+}
+
+#scroll2 .box .container .content {
+  width: 50%;
+}
+
+#scroll2 .box .container .content h1 {
+  font-size: 4.8em;
+  color: rgba(0, 0, 0, 0.596);
+  letter-spacing: 6px;
+}
+
+#scroll2 .box .container .content p {
+  font-style: italic;
+  text-align: justify;
+  line-height: 30px;
+  width: 85%;
+  margin-top: 20px;
+}
+
+#scroll2 .box .container .content button {
+  margin-top: 30px;
+  width: 170px;
+  height: 55px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1em;
+  background-color: rgb(255, 0, 0);
+  transition: 0.5s;
+  color: white;
+}
+
+#scroll2 .box .container .content button:hover {
+  background-color: rgb(104, 255, 99);
+  width: 190px;
+}
+
+/*Adaptation page 3 téléphone*/
+@media screen and (max-width: 1700px) {
+  #scroll2 .box .container .content h1 {
+    font-size: 4.2em;
+  }
+}
+
+@media screen and (max-width: 1520px) {
+  #scroll2 .box .container .content h1 {
+    font-size: 3.8em;
+  }
+}
+
+@media screen and (max-width: 1420px) {
+  #scroll2 .box .container .content {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #scroll2 .box .container .content h1 {
+    font-size: 3.8em;
+    text-align: center;
+  }
+
+  #scroll2 .box .container .picture {
+    scale: 0.9;
+    margin-top: -100px;
+  }
+
+  #scroll2 .box {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  #scroll2 .box .container .content h1 {
+    margin-top: -50px;
+    font-size: 3em;
+  }
+
+  #scroll2 .box .container .picture {
+    scale: 0.7;
+    margin-top: -180px;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  #scroll2 .box .container .content h1 {
+    margin-top: -150px;
+    font-size: 2em;
+  }
+
+  #scroll2 .box .container .picture {
+    min-width: 530px;
+    scale: 0.5;
+    margin-top: -250px;
+  }
+  #scroll2 .box {
+    width: 80%;
+  }
+}
+
+/*PAGE CONTACT----------------------------------------------------------------------------------------------------------------------------------PAGE CONTACT*/
+
+/*Background*/
+#map {
+  background-color: white;
+  width: 100vw;
+}
+#map .Contact {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 50px 10px;
+}
+
+#map .container {
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+  width: 90%;
+  box-shadow: 2px 2px 40px rgb(0 0 0 / 30%);
+  flex-direction: column;
+  align-items: center;
+}
+
+#map .container h1 {
+  color: var(--PrimaryBlue);
+  text-align: center;
+  font-size: 2.2em;
+}
+#map .container img {
+  margin-top: 30px;
+  width: 80%;
+  box-shadow: 2px 2px 40px rgb(0 0 0 / 30%);
+}
+
+#map .map {
+
+  width: 70vw;
+  height : 50vh;
+  border: none;
+     
+}
+
+#map .content1 {
+  display: flex;
+  justify-content: space-around;
+  width: 70%;
+  flex-wrap: wrap;
+  margin-top: 50px;
+}
+
+#map .content1 h1 {
+  color: black;
+  font-size: 1.2em;
+  text-align: center;
+  margin-top: 0vh;
+}
+
+#map .content1 p {
+  color: black;
+  text-align: center;
+}
+
+#map .content2 {
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
+  margin-top: 50px;
+  flex-wrap: wrap;
+  border-top: solid 3px black;
+}
+
+#map .content2 h1 {
+  color: black;
+  font-size: 1.2em;
+  text-align: center;
+  margin-top: 20px;
+}
+
+#map .content2 p {
+  color: black;
+  text-align: center;
+}
+
+#map .container button {
+  margin-top: 50px;
+  width: 250px;
+  height: 55px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1em;
+  background-color: var(--PrimaryBlue);
+  transition: 0.5s;
+  color: white;
+}
+
+#map .container button:hover {
+  width: 270px;
+
+  background-color: var(--SecondaryBlue);
+}
+
+/*Footer----------------------------------------------------------------------------------------------------------------------------------Footer*/
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: rgb(148, 148, 148);
+}
+
+footer .container {
+  margin-top: 20px;
+}
+
+footer .container span {
+  padding: 0 10px;
+  scale: 0.9;
+  transition: 0.5s;
+  color: black;
+}
+
+footer .container span:hover {
+  color: var(--PrimaryBlue);
+  scale: 1.2;
+  cursor: pointer;
+}
+
+footer a {
+  text-decoration: none;
+  color: black;
+}
+footer p {
+  text-decoration: underline;
+  font-size: 0.9em;
+}
+
+footer .container p#footer {
+  margin-top: 10px;
+  font-size: 0.7em;
+  text-decoration: none;
+}
+
+/*Cookies----------------------------------------------------------------------------------------------------------------------------------Cookies*/
+
+
+.cookie-banner {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  max-width: 400px;
+  margin-right: 20px;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+}
+
+.cookie-banner p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.cookie-banner a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.cookie-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.cookie-button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.cookie-button:hover {
+  background-color: #0056b3;
+}
+
+.cookie-button:focus {
+  outline: none;
+}
+
+#cookie-customize-menu {
+  position: fixed;
+  bottom: 150px;
+  left: 40px;
+  margin-right: 20px;
+  max-width: 400px;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+  display: none; /* Hide the customize menu by default */
+}
+
+#cookie-customize-menu.active {
+  display: block; /* Show the customize menu when active class is applied */
+}
+
+#cookie-customize-menu h3 {
+  font-size: 18px;
+  margin-top: 0;
+}
+
+#cookie-customize-menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+#cookie-customize-menu li {
+  margin-bottom: 10px;
+}
+
+#save-preferences {
+  display: block;
+  margin-top: 20px;
+}
